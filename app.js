@@ -31,18 +31,24 @@ http.createServer((req, res) => {
           const fileStream=fs.createReadStream(reqPath);
           res.writeHead(200 ,{'Content-Type':'text/jpg'});
           fileStream.pipe(res);
-        }else if (req.url.match(/.js$/)){
+        }else if (req.url.match(/.txt$/)){
           const reqPath=path.join(__dirname,'WWW',req.url);
           const fileStream=fs.createReadStream(reqPath);
-          res.writeHead(200 ,{'Content-Type':'text/js'});
+          res.writeHead(200 ,{'Content-Type':'text/txt'});
           fileStream.pipe(res);
-        }else if(req.url.match(/.html$/)){
+        }
+        else if(req.url.match(/.html$/)){
           const reqPath=path.join(__dirname,'WWW',req.url);
           const fileStream=fs.createReadStream(reqPath);
           res.writeHead(200 ,{'Content-Type':'text/html'});
           fileStream.pipe(res);
         }
-        else {
+        else if (req.url.match(/.js$/)){
+          const reqPath=path.join(__dirname,'WWW',req.url);
+          const fileStream=fs.createReadStream(reqPath);
+          res.writeHead(200 ,{'Content-Type':'text/js'});
+          fileStream.pipe(res);
+        } else {
         res.writeHead(404,{'Content-Type':'text/plain'});
         res.end('Server Error');
 
